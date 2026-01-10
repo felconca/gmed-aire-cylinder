@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 10, 2026 at 01:10 AM
--- Server version: 10.4.27-MariaDB
+-- Generation Time: Jan 10, 2026 at 09:53 AM
+-- Server version: 10.4.27-MariaDB-log
 -- PHP Version: 7.4.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -81,8 +81,8 @@ CREATE TABLE `cylinders` (
 
 INSERT INTO `cylinders` (`id`, `serial_no`, `barcode`, `types`, `capacity`, `customer_id`, `unit_id`, `category_id`, `manufacture_date`, `expiry_date`, `inspection_date`, `hydrotest_date`, `location_id`, `status`, `create_at`, `updated_at`, `deleted`) VALUES
 (1, '900920292', 'CYL-20260107-900920292', 1, '122.0000', 0, 1, 1, '2026-01-07', '2026-01-07', NULL, NULL, 2, 'available', '2026-01-07 00:44:20', '2026-01-08 21:55:38', 1),
-(3, 'cy9009202921', 'CYL-20260107-cy9009202921', 1, '1909.0000', 0, 3, 1, '2026-01-07', '2026-01-07', NULL, NULL, 2, 'available', '2026-01-07 00:45:34', '2026-01-10 00:03:49', 0),
-(5, '90092029215', 'CYL-20260109-9009202921', 2, '2213213.0000', 0, 2, 1, '2026-01-07', '2026-01-07', NULL, NULL, 2, 'available', '2026-01-07 00:46:07', '2026-01-10 00:03:49', 0),
+(3, 'cy9009202921', 'CYL-20260107-cy9009202921', 1, '1909.0000', 0, 3, 1, '2026-01-07', '2026-01-07', NULL, NULL, 2, 'reserved', '2026-01-07 00:45:34', '2026-01-10 01:12:36', 0),
+(5, '90092029215', 'CYL-20260109-9009202921', 2, '2213213.0000', 0, 2, 1, '2026-01-07', '2026-01-07', NULL, NULL, 2, 'reserved', '2026-01-07 00:46:07', '2026-01-10 01:12:36', 0),
 (9, '9009202921', 'CYL-20260107-9009202921', 1, '321321.0000', 0, 1, 1, '2026-01-07', '2026-01-07', NULL, NULL, 2, 'available', '2026-01-07 13:29:41', '2026-01-10 00:03:49', 0),
 (12, '90092029212', 'CYL-20260107-90092029212', 1, '3213213.0000', 0, 1, 1, '2026-01-07', '2026-01-07', NULL, NULL, 2, 'available', '2026-01-07 13:33:04', '2026-01-10 00:01:53', 0),
 (18, '900920292132', 'CYL-20260107-900920292132', 1, '18000.0000', 0, 2, 1, '2026-01-07', '2026-01-07', NULL, NULL, 4, 'available', '2026-01-07 13:57:08', '2026-01-09 18:11:54', 0),
@@ -148,7 +148,8 @@ CREATE TABLE `cylinder_delivery` (
 
 INSERT INTO `cylinder_delivery` (`id`, `delivery_no`, `location_id`, `customer_id`, `customer_address`, `status`, `items_total`, `notes`, `created_by`, `request_date`, `delivery_date`, `delivered_date`, `deleted`, `created_at`, `updated_at`) VALUES
 (1, 'DLV-20260109-000001', 1, 5, 18, 'pending', '0.0000', 'Blocked aria-hidden on an element because its descendant retained focus. The focus must not be hidden from assistive technology users. Avoid using aria-hidden on a focused element or its ancestor.', 1, '2026-01-09', '2026-01-09', NULL, 1, '2026-01-09 12:02:54', '2026-01-09 15:27:31'),
-(2, 'DLV-20260109-000001', 1, 5, 18, 'pending', '0.0000', 'A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart. I am alone, and feel the charm of existence in this spot, which was created for the bliss of souls like mine.', 1, '2026-01-01', '2026-01-31', NULL, 0, '2026-01-09 16:31:28', '2026-01-10 08:03:49');
+(2, 'DLV-20260109-000001', 1, 5, 18, 'pending', '2.0000', 'A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart. I am alone, and feel the charm of existence in this spot, which was created for the bliss of souls like mine.', 1, '2026-01-01', '2026-01-31', NULL, 0, '2026-01-09 16:31:28', '2026-01-10 09:12:36'),
+(3, 'DLV-20260110-000002', 1, 12, 0, 'pending', '0.0000', 'dasdasdasd', 1, '2026-01-10', '2026-01-10', NULL, 0, '2026-01-10 14:31:35', '2026-01-10 14:31:35');
 
 -- --------------------------------------------------------
 
@@ -163,6 +164,14 @@ CREATE TABLE `cylinder_delivery_items` (
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `cylinder_delivery_items`
+--
+
+INSERT INTO `cylinder_delivery_items` (`id`, `delivery_id`, `cylinder_id`, `created_at`, `updated_at`) VALUES
+(43, 2, 3, '2026-01-10 09:12:36', '2026-01-10 09:12:36'),
+(44, 2, 5, '2026-01-10 09:12:36', '2026-01-10 09:12:36');
 
 -- --------------------------------------------------------
 
@@ -244,7 +253,9 @@ INSERT INTO `cylinder_logs` (`id`, `cylinder_id`, `actions`, `descriptions`, `cr
 (21, 12, 'reserved', 'Cylinder reserved for delivery', '2026-01-10 07:44:30', 1),
 (22, 5, 'reserved', 'Cylinder reserved for delivery', '2026-01-10 08:02:15', 1),
 (23, 3, 'reserved', 'Cylinder reserved for delivery', '2026-01-10 08:02:17', 1),
-(24, 9, 'reserved', 'Cylinder reserved for delivery', '2026-01-10 08:02:55', 1);
+(24, 9, 'reserved', 'Cylinder reserved for delivery', '2026-01-10 08:02:55', 1),
+(25, 3, 'reserved', 'Cylinder reserved for delivery', '2026-01-10 09:12:36', 1),
+(26, 5, 'reserved', 'Cylinder reserved for delivery', '2026-01-10 09:12:36', 1);
 
 -- --------------------------------------------------------
 
@@ -897,6 +908,7 @@ CREATE TABLE `users` (
   `user_type` enum('Administrator','Maintenance Staff','Auditor','Delivery Staff','User','Store / Filling Staff','') NOT NULL DEFAULT 'User',
   `token` text DEFAULT NULL,
   `profile` varchar(255) DEFAULT NULL,
+  `pin` int(4) NOT NULL DEFAULT 0,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `deleted` tinyint(1) NOT NULL DEFAULT 0
@@ -906,8 +918,8 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `firstname`, `lastname`, `username`, `password`, `contacts`, `email`, `user_type`, `token`, `profile`, `created_at`, `updated_at`, `deleted`) VALUES
-(1, 'Rowena', 'Billones', 'gadmin', '$2y$10$TDKLVCoU/zAHOI8j6k7hyeFfATHG9Sq08yte8/fV27kHsynnvawBC', NULL, 'admin@gmedaire.com', 'Administrator', NULL, NULL, '2025-10-20 15:52:26', '2025-10-20 15:52:26', 0);
+INSERT INTO `users` (`id`, `firstname`, `lastname`, `username`, `password`, `contacts`, `email`, `user_type`, `token`, `profile`, `pin`, `created_at`, `updated_at`, `deleted`) VALUES
+(1, 'Rowena', 'Billones', 'gadmin', '$2y$10$TDKLVCoU/zAHOI8j6k7hyeFfATHG9Sq08yte8/fV27kHsynnvawBC', NULL, 'admin@gmedaire.com', 'Administrator', NULL, NULL, 2857, '2026-01-10 03:34:45', '2026-01-10 03:34:45', 0);
 
 -- --------------------------------------------------------
 
@@ -1164,7 +1176,8 @@ ALTER TABLE `units`
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `pin` (`pin`);
 
 --
 -- Indexes for table `vat`
@@ -1204,13 +1217,13 @@ ALTER TABLE `cylinder_categories`
 -- AUTO_INCREMENT for table `cylinder_delivery`
 --
 ALTER TABLE `cylinder_delivery`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `cylinder_delivery_items`
 --
 ALTER TABLE `cylinder_delivery_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `cylinder_locations`
@@ -1222,7 +1235,7 @@ ALTER TABLE `cylinder_locations`
 -- AUTO_INCREMENT for table `cylinder_logs`
 --
 ALTER TABLE `cylinder_logs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `cylinder_types`

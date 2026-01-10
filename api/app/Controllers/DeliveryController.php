@@ -121,6 +121,101 @@ class DeliveryController extends Rest
             ], 500);
         }
     }
+    public function list_mobile($request, $response)
+    {
+        // WHY IT RETURNS EMPTY ARRAY?
+
+        // 1. Input Validation: Check the input values (customer, from, to, status)
+        //    Are they being set as expected? Is the frontend passing correct values?
+
+        try {
+            $input = $request->validate([
+                "customer" => "required|numeric",
+                "from" => "required|date",
+                "to" => "required|date",
+                "status" => "string",
+
+            ]);
+
+            // Debug: capture and log what input is received
+            // file_put_contents('/tmp/delivery_debug.txt', print_r($input, true), FILE_APPEND);
+
+            $qb = $this->db->gmedaire();
+
+            $results = $qb->SELECT(
+                [
+                    'cd.id',
+                    'cd.delivery_no',
+                    'cd.delivered_date',
+                    'cd.delivery_date',
+                    'cd.request_date',
+                    'cd.customer_id',
+                    'cd.status',
+                    'cd.items_total',
+                    'cd.customer_address',
+                    // partners
+                    'p.descriptions',
+                    'p.contact_person as partner_contact_person',
+                    'p.contact_no as partner_contact_no',
+                    'p.email as partner_email',
+                    'p.address as partner_address',
+                    'p.city as partner_city',
+                    'p.state as partner_state',
+                    'p.zipcode as partner_zipcode',
+                    "CONCAT(p.address, ', ', IFNULL(p.city, ''), ', ', IFNULL(p.state, ''), ', ', IFNULL(p.zipcode, '')) as location_full_address",
+                    // partners_locations
+                    'pl.address as location_address',
+                    'pl.contact_no as location_contact_no',
+                    'pl.contact_person as location_contact_person',
+                    'pl.email as location_email',
+                ],
+                'cylinder_delivery cd'
+            )
+                ->LEFTJOIN('partners p', 'p.id = cd.customer_id')
+                ->LEFTJOIN('partners_locations pl', 'pl.id = cd.customer_address')
+                ->WHERE("cd.deleted = 0");
+
+            // 2. Debug what WHERE conditions are being applied
+            //    If any of the WHEREs below are too restrictive, you will get empty results
+
+            // a. Status filter
+            if ($input["status"] !== 'all') {
+                $results->WHERE(["cd.status" => $input['status']]);
+                // Debug: file_put_contents('/tmp/delivery_debug.txt', "STATUS={$input['status']}\n", FILE_APPEND);
+            }
+
+            // b. Customer filter
+            //    Make sure `customer` is numeric and not string "0"
+            if ((int)$input["customer"] !== 0) {
+                $results->WHERE(["cd.customer_id" => $input['customer']]);
+                // Debug: file_put_contents('/tmp/delivery_debug.txt', "CUSTOMER={$input['customer']}\n", FILE_APPEND);
+            }
+
+            // c. Date Range filter
+            //    If from/to are empty or date range is wrong, will return empty
+            if (!empty($input["from"]) && !empty($input["to"])) {
+                // Ensure correct date format for SQL: 'YYYY-MM-DD'
+                $from = date('Y-m-d', strtotime($input["from"]));
+                $to = date('Y-m-d', strtotime($input["to"]));
+                $results->WHERE_BETWEEN("cd.delivery_date", $from, $to);
+                // Debug: file_put_contents('/tmp/delivery_debug.txt', "FROM=$from TO=$to\n", FILE_APPEND);
+            }
+
+            // 3. Try running the generated SQL directly in database to see if it returns rows!
+            // 4. Try removing all WHEREs except cd.deleted = 0. If it still returns empty, table is empty.
+
+            $data = $results->get();
+
+            // Debug: file_put_contents('/tmp/delivery_debug.txt', var_export($data, true), FILE_APPEND);
+
+            $response($data, 200);
+        } catch (\Exception $e) {
+            return $response([
+                'error' => true,
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
 
     public function add($request, $response)
     {

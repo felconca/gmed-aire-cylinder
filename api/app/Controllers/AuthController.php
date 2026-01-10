@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use Includes\Rest;
 use Core\Database\Database;
+use Firebase\JWT\JWT;
 
 class AuthController extends Rest
 {
@@ -205,5 +206,79 @@ class AuthController extends Rest
 
 
         $response(["status" => 200, "message" => "Logged out"], 200);
+    }
+
+    public function mobileLogin($request, $response, $params)
+    {
+        try {
+            $input = $request->validate([
+                'pin' => 'required|numeric|max:4',
+            ]);
+
+            $pin = $input['pin'];
+
+            // Search user by pin column
+            $user = $this->db->gmedaire()
+                ->SELECT(["id, username, firstname, lastname, profile, contacts, email, user_type, pin"], "users")
+                ->WHERE(["pin" => $pin])
+                ->WHERE(["deleted" => 0])
+                ->first();
+
+            if ($user) {
+                // Generate a pass token (random 64-character string)
+                // Use Firebase JWT to generate the token
+                $firebaseJwtSecret = $_ENV['JWT_SECRET'] ?? 'your_default_jwt_secret';
+                $now = time();
+                $payload = [
+                    "iss" => "gmedaire-mobile-auth", // issuer
+                    "iat" => $now, // issued at
+                    "nbf" => $now, // not before
+                    "exp" => $now + 86400, // expires in 24h
+                    "sub" => $user->id,
+                    "user" => [
+                        "id" => $user->id,
+                        "username" => $user->username,
+                        "firstname" => $user->firstname,
+                        "lastname" => $user->lastname,
+                        "email" => $user->email,
+                        "user_type" => $user->user_type,
+                    ]
+                ];
+
+                // You must have firebase/php-jwt installed. Add `use Firebase\JWT\JWT;` at the top if not done.
+                $token = JWT::encode($payload, $firebaseJwtSecret, 'HS256');
+
+
+                // Optionally store/associate the token with the user in DB or use stateless
+                // $this->db->gmedaire()->UPDATE("users", ["pass_token" => $token])->WHERE(["id" => $user->id])->exec();
+
+                return $response([
+                    "status" => 200,
+                    "message" => "Mobile login successful",
+                    "user" => [
+                        "id"        => $user->id,
+                        "firstname" => $user->firstname,
+                        "lastname"  => $user->lastname,
+                        "username"  => $user->username,
+                        "profile"   => $user->profile,
+                        "contacts"  => $user->contacts,
+                        "email"     => $user->email,
+                        "user_type" => $user->user_type,
+                    ],
+                    "token" => $token,
+                ], 200);
+            } else {
+                return $response([
+                    "status" => 401,
+                    "message" => "Invalid PIN for mobile login"
+                ], 401);
+            }
+        } catch (\Exception $e) {
+            return $response([
+                "status" => 500,
+                "message" => "Something went wrong",
+                "error" => $e->getMessage()
+            ], 500);
+        }
     }
 }

@@ -6,6 +6,7 @@ use Core\Middleware\AuthSession;
 
 // route login
 Route::post('login', 'AuthController@login');
+Route::post('/mobile/login', 'AuthController@mobileLogin');
 Route::post('logout', 'AuthController@logout');
 
 Route::get('verify', 'AuthController@verify');
@@ -79,7 +80,10 @@ Route::group(['prefix' => 'delivery', 'middleware' => [new AuthSession("user")]]
 });
 
 
-
+// delivery mobile api
+Route::group(['prefix' => 'mobile/delivery', 'middleware' => []], function () {
+    Route::get('list', 'DeliveryController@list_mobile');
+});
 
 // Route::get('users/{id}', 'AppController@edit', [new AuthToken()]);
 Route::get('users/id/{id}/date/{date}', 'AppController@showByIdDate', [new AuthToken()]);
