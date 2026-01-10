@@ -191,8 +191,10 @@
                         </button>
                         <ul class="dropdown-menu">
                             <li>
-                                <button class="dropdown-item" type="button" ng-click="editCylinder(items)">
-                                    <i class="ph-bold ph-pencil-simple-line"></i>
+                                <button class="dropdown-item" type="button" ng-click="editCylinder(items)"
+                                    ng-disabled="items.status == 'in used' || items.status == 'reserved'
+                                    || items.status == 'under maintenance'">
+                                    <i class=" ph-bold ph-pencil-simple-line"></i>
                                     <span>Edit Cylinder</span>
                                 </button>
                             </li>
@@ -212,7 +214,9 @@
                                 <hr class="dropdown-divider">
                             </li>
                             <li>
-                                <button class="dropdown-item delete" ng-click="deleteCylinder(items.id)">
+                                <button class="dropdown-item delete" ng-click="deleteCylinder(items.id)"
+                                    ng-disabled="items.status == 'in used' || items.status == 'reserved'
+                                    || items.status == 'under maintenance'">
                                     <i class="ph-bold ph-trash text-danger"></i>
                                     <span class="text-danger">Delete</span>
                                 </button>

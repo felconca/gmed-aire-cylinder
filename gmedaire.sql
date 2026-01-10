@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 08, 2026 at 01:33 AM
+-- Generation Time: Jan 10, 2026 at 01:10 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 7.4.33
 
@@ -69,7 +69,7 @@ CREATE TABLE `cylinders` (
   `inspection_date` date DEFAULT NULL,
   `hydrotest_date` date DEFAULT NULL,
   `location_id` int(11) DEFAULT 0,
-  `status` enum('available','in used','under maintenance','returned','for inspection','for testing','empty') NOT NULL DEFAULT 'available',
+  `status` enum('available','in used','under maintenance','returned','for inspection','reserved','expired') NOT NULL DEFAULT 'available',
   `create_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `deleted` tinyint(1) NOT NULL DEFAULT 0
@@ -80,15 +80,17 @@ CREATE TABLE `cylinders` (
 --
 
 INSERT INTO `cylinders` (`id`, `serial_no`, `barcode`, `types`, `capacity`, `customer_id`, `unit_id`, `category_id`, `manufacture_date`, `expiry_date`, `inspection_date`, `hydrotest_date`, `location_id`, `status`, `create_at`, `updated_at`, `deleted`) VALUES
-(1, '900920292', 'CYL-20260107-900920292', 1, '122.0000', 0, 1, 1, '2026-01-07', '2026-01-07', NULL, NULL, 2, 'available', '2026-01-07 00:44:20', '2026-01-07 13:16:07', 1),
-(3, 'cy9009202921', 'CYL-20260107-cy9009202921', 1, '1909.0000', 0, 3, 1, '2026-01-07', '2026-01-07', NULL, NULL, 2, 'available', '2026-01-07 00:45:34', '2026-01-07 00:45:34', 0),
-(5, 'cy90092029212', 'CYL-20260107-cy90092029212', 1, '2213213.0000', 0, 2, 1, '2026-01-07', '2026-01-07', NULL, NULL, 2, 'available', '2026-01-07 00:46:07', '2026-01-07 00:46:07', 0),
-(9, '9009202921', 'CYL-20260107-9009202921', 1, '321321.0000', 0, 1, 1, '2026-01-07', '2026-01-07', NULL, NULL, 2, 'available', '2026-01-07 13:29:41', '2026-01-07 13:29:41', 0),
-(12, '90092029212', 'CYL-20260107-90092029212', 1, '3213213.0000', 0, 1, 1, '2026-01-07', '2026-01-07', NULL, NULL, 2, 'available', '2026-01-07 13:33:04', '2026-01-07 13:33:04', 0),
-(18, '900920292132', 'CYL-20260107-900920292132', 1, '18000.0000', 0, 2, 1, '2026-01-07', '2026-01-07', NULL, NULL, 4, 'available', '2026-01-07 13:57:08', '2026-01-07 13:57:08', 0),
+(1, '900920292', 'CYL-20260107-900920292', 1, '122.0000', 0, 1, 1, '2026-01-07', '2026-01-07', NULL, NULL, 2, 'available', '2026-01-07 00:44:20', '2026-01-08 21:55:38', 1),
+(3, 'cy9009202921', 'CYL-20260107-cy9009202921', 1, '1909.0000', 0, 3, 1, '2026-01-07', '2026-01-07', NULL, NULL, 2, 'available', '2026-01-07 00:45:34', '2026-01-10 00:03:49', 0),
+(5, '90092029215', 'CYL-20260109-9009202921', 2, '2213213.0000', 0, 2, 1, '2026-01-07', '2026-01-07', NULL, NULL, 2, 'available', '2026-01-07 00:46:07', '2026-01-10 00:03:49', 0),
+(9, '9009202921', 'CYL-20260107-9009202921', 1, '321321.0000', 0, 1, 1, '2026-01-07', '2026-01-07', NULL, NULL, 2, 'available', '2026-01-07 13:29:41', '2026-01-10 00:03:49', 0),
+(12, '90092029212', 'CYL-20260107-90092029212', 1, '3213213.0000', 0, 1, 1, '2026-01-07', '2026-01-07', NULL, NULL, 2, 'available', '2026-01-07 13:33:04', '2026-01-10 00:01:53', 0),
+(18, '900920292132', 'CYL-20260107-900920292132', 1, '18000.0000', 0, 2, 1, '2026-01-07', '2026-01-07', NULL, NULL, 4, 'available', '2026-01-07 13:57:08', '2026-01-09 18:11:54', 0),
 (27, '90092202921', 'CYL-20260107-900920292123', 1, '3213213213.0000', 0, 1, 1, '2026-01-07', '2026-01-07', NULL, NULL, 4, 'available', '2026-01-07 14:13:23', '2026-01-08 00:02:41', 1),
-(28, '90092029214', 'CYL-20260107-90092029214', 2, '32323.0000', 0, 1, 1, '2026-01-07', '2026-01-07', NULL, NULL, 4, 'available', '2026-01-07 14:15:22', '2026-01-07 14:15:22', 0),
-(29, '90092029215632', 'CYL-20260107-90092029215632', 2, '33432.0000', 0, 2, 2, '2026-01-07', '2030-01-07', NULL, NULL, 2, 'available', '2026-01-07 14:16:53', '2026-01-07 14:21:23', 0);
+(28, '90092029214', 'CYL-20260107-90092029214', 2, '32323.0000', 0, 1, 1, '2026-01-07', '2026-01-07', NULL, NULL, 4, 'available', '2026-01-07 14:15:22', '2026-01-10 00:01:53', 0),
+(29, '90092029215632', 'CYL-20260107-90092029215632', 2, '33432.0000', 0, 2, 2, '2026-01-07', '2030-01-07', NULL, NULL, 2, 'available', '2026-01-07 14:16:53', '2026-01-09 18:11:54', 0),
+(30, 'cy90092029212', 'CYL-20260109-cy90092029212', 1, '232.0000', 0, 1, 1, '2026-01-09', '2026-01-09', NULL, NULL, 2, 'available', '2026-01-09 13:13:23', '2026-01-09 18:11:54', 0),
+(31, '90092029218', 'CYL-20260109-90092029218', 1, '213213.0000', 0, 1, 1, '2026-01-09', '2026-03-09', NULL, NULL, 2, 'available', '2026-01-09 13:16:21', '2026-01-10 00:01:53', 0);
 
 -- --------------------------------------------------------
 
@@ -119,6 +121,52 @@ INSERT INTO `cylinder_categories` (`id`, `tags`, `descriptions`, `items_total`, 
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `cylinder_delivery`
+--
+
+CREATE TABLE `cylinder_delivery` (
+  `id` int(11) NOT NULL,
+  `delivery_no` varchar(255) DEFAULT NULL,
+  `location_id` int(11) NOT NULL DEFAULT 0,
+  `customer_id` int(11) NOT NULL DEFAULT 0,
+  `customer_address` int(11) NOT NULL DEFAULT 0,
+  `status` enum('delivered','returned','pending','cancelled') NOT NULL DEFAULT 'pending',
+  `items_total` decimal(12,4) NOT NULL DEFAULT 0.0000,
+  `notes` text DEFAULT NULL,
+  `created_by` int(11) NOT NULL DEFAULT 0,
+  `request_date` date DEFAULT NULL,
+  `delivery_date` date DEFAULT NULL,
+  `delivered_date` datetime DEFAULT NULL,
+  `deleted` tinyint(1) NOT NULL DEFAULT 0,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `cylinder_delivery`
+--
+
+INSERT INTO `cylinder_delivery` (`id`, `delivery_no`, `location_id`, `customer_id`, `customer_address`, `status`, `items_total`, `notes`, `created_by`, `request_date`, `delivery_date`, `delivered_date`, `deleted`, `created_at`, `updated_at`) VALUES
+(1, 'DLV-20260109-000001', 1, 5, 18, 'pending', '0.0000', 'Blocked aria-hidden on an element because its descendant retained focus. The focus must not be hidden from assistive technology users. Avoid using aria-hidden on a focused element or its ancestor.', 1, '2026-01-09', '2026-01-09', NULL, 1, '2026-01-09 12:02:54', '2026-01-09 15:27:31'),
+(2, 'DLV-20260109-000001', 1, 5, 18, 'pending', '0.0000', 'A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart. I am alone, and feel the charm of existence in this spot, which was created for the bliss of souls like mine.', 1, '2026-01-01', '2026-01-31', NULL, 0, '2026-01-09 16:31:28', '2026-01-10 08:03:49');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cylinder_delivery_items`
+--
+
+CREATE TABLE `cylinder_delivery_items` (
+  `id` int(11) NOT NULL,
+  `delivery_id` int(11) NOT NULL DEFAULT 0,
+  `cylinder_id` int(11) NOT NULL DEFAULT 0,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `cylinder_locations`
 --
 
@@ -141,15 +189,62 @@ CREATE TABLE `cylinder_locations` (
 --
 
 INSERT INTO `cylinder_locations` (`id`, `tags`, `descriptions`, `parents`, `is_parent`, `warehouse`, `items_total`, `default_1`, `deleted`, `created_at`, `updated_at`) VALUES
-(1, 'CS', 'Customers', 0, 0, 0, '0.0000', 0, 0, '2026-01-03 11:59:28', '2026-01-06 14:55:24'),
-(2, 'SR', 'Storage Room', 0, 0, 0, '0.0000', 1, 0, '2026-01-03 11:59:28', '2026-01-06 14:56:09'),
-(3, 'MR', 'Maintenance Room', 0, 0, 0, '0.0000', 0, 0, '2026-01-03 11:59:28', '2026-01-06 14:56:09'),
+(1, 'CS', 'Customer Holdings', 0, 1, 0, '0.0000', 0, 0, '2026-01-03 11:59:28', '2026-01-09 01:58:42'),
+(2, 'SR', 'Storage Room', 0, 0, 0, '0.0000', 1, 0, '2026-01-03 11:59:28', '2026-01-08 15:43:19'),
+(3, 'MR', 'Maintenance Room', 0, 0, 0, '0.0000', 0, 0, '2026-01-03 11:59:28', '2026-01-08 15:43:21'),
 (4, 'RA', 'Recycle Area', 0, 0, 1, '0.0000', 0, 1, '2026-01-05 23:16:36', '2026-01-05 23:29:07'),
 (5, 'RA', 'Recycle Area', 0, 0, 1, '0.0000', 0, 1, '2026-01-05 23:16:45', '2026-01-05 23:22:28'),
 (6, 'RC-A', 'Receiving Area', 0, 0, 1, '0.0000', 0, 1, '2026-01-05 23:27:16', '2026-01-05 23:29:03'),
 (7, 'sample', 'sample change on default', 0, 0, 1, '0.0000', 0, 1, '2026-01-05 23:43:37', '2026-01-05 23:45:19'),
 (8, 'dasdasd', 'dasdasd', 0, 0, 1, '0.0000', 0, 1, '2026-01-06 00:01:46', '2026-01-06 00:04:14'),
-(9, 'dasdasd', 'dasdas', 0, 0, 1, '0.0000', 0, 1, '2026-01-06 14:55:51', '2026-01-06 14:56:13');
+(9, 'dasdasd', 'dasdas', 0, 0, 1, '0.0000', 0, 1, '2026-01-06 14:55:51', '2026-01-06 14:56:13'),
+(10, 'Receiving Area', 'Receiving Area', 0, 0, 1, '0.0000', 0, 0, '2026-01-08 15:39:01', '2026-01-08 15:42:16'),
+(11, 'sasa', 'dasdasd', 0, 0, 1, '0.0000', 0, 0, '2026-01-08 15:42:49', '2026-01-08 15:42:49');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cylinder_logs`
+--
+
+CREATE TABLE `cylinder_logs` (
+  `id` int(11) NOT NULL,
+  `cylinder_id` int(11) NOT NULL DEFAULT 0,
+  `actions` enum('issued','returned','expired','inspect','hydro test','maintenance','reserved') DEFAULT NULL,
+  `descriptions` text NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `created_by` int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `cylinder_logs`
+--
+
+INSERT INTO `cylinder_logs` (`id`, `cylinder_id`, `actions`, `descriptions`, `created_at`, `created_by`) VALUES
+(1, 3, 'reserved', 'Cylinder reserved for delivery', '2026-01-10 00:53:22', 1),
+(2, 30, 'reserved', 'Cylinder reserved for delivery', '2026-01-10 00:53:50', 1),
+(3, 31, 'reserved', 'Cylinder reserved for delivery', '2026-01-10 00:55:05', 1),
+(4, 3, 'reserved', 'Cylinder reserved for delivery', '2026-01-10 01:50:00', 1),
+(5, 29, 'reserved', 'Cylinder reserved for delivery', '2026-01-10 01:50:02', 1),
+(6, 31, 'reserved', 'Cylinder reserved for delivery', '2026-01-10 01:50:06', 1),
+(7, 3, 'reserved', 'Cylinder reserved for delivery', '2026-01-10 02:08:04', 1),
+(8, 5, 'reserved', 'Cylinder reserved for delivery', '2026-01-10 02:08:04', 1),
+(9, 28, 'reserved', 'Cylinder reserved for delivery', '2026-01-10 02:08:20', 1),
+(10, 18, 'reserved', 'Cylinder reserved for delivery', '2026-01-10 02:08:20', 1),
+(11, 9, 'reserved', 'Cylinder reserved for delivery', '2026-01-10 02:11:40', 1),
+(12, 12, 'reserved', 'Cylinder reserved for delivery', '2026-01-10 02:11:40', 1),
+(13, 30, 'reserved', 'Cylinder reserved for delivery', '2026-01-10 02:11:40', 1),
+(14, 5, 'reserved', 'Cylinder reserved for delivery', '2026-01-10 02:16:39', 1),
+(15, 28, 'reserved', 'Cylinder reserved for delivery', '2026-01-10 02:16:39', 1),
+(16, 3, 'reserved', 'Cylinder reserved for delivery', '2026-01-10 02:36:31', 1),
+(17, 9, 'reserved', 'Cylinder reserved for delivery', '2026-01-10 02:36:31', 1),
+(18, 3, 'reserved', 'Cylinder reserved for delivery', '2026-01-10 07:36:52', 1),
+(19, 5, 'reserved', 'Cylinder reserved for delivery', '2026-01-10 07:37:08', 1),
+(20, 31, 'reserved', 'Cylinder reserved for delivery', '2026-01-10 07:40:47', 1),
+(21, 12, 'reserved', 'Cylinder reserved for delivery', '2026-01-10 07:44:30', 1),
+(22, 5, 'reserved', 'Cylinder reserved for delivery', '2026-01-10 08:02:15', 1),
+(23, 3, 'reserved', 'Cylinder reserved for delivery', '2026-01-10 08:02:17', 1),
+(24, 9, 'reserved', 'Cylinder reserved for delivery', '2026-01-10 08:02:55', 1);
 
 -- --------------------------------------------------------
 
@@ -799,7 +894,7 @@ CREATE TABLE `users` (
   `password` varchar(255) DEFAULT NULL,
   `contacts` varchar(100) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
-  `user_type` varchar(255) NOT NULL DEFAULT 'User',
+  `user_type` enum('Administrator','Maintenance Staff','Auditor','Delivery Staff','User','Store / Filling Staff','') NOT NULL DEFAULT 'User',
   `token` text DEFAULT NULL,
   `profile` varchar(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
@@ -897,9 +992,33 @@ ALTER TABLE `cylinder_categories`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `cylinder_delivery`
+--
+ALTER TABLE `cylinder_delivery`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idx_location` (`location_id`) USING BTREE,
+  ADD KEY `idx_customer` (`customer_id`) USING BTREE,
+  ADD KEY `idx_user` (`created_by`),
+  ADD KEY `idx_address` (`customer_address`) USING BTREE;
+
+--
+-- Indexes for table `cylinder_delivery_items`
+--
+ALTER TABLE `cylinder_delivery_items`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idx_delivery` (`delivery_id`),
+  ADD KEY `idx_cylinder` (`cylinder_id`);
+
+--
 -- Indexes for table `cylinder_locations`
 --
 ALTER TABLE `cylinder_locations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `cylinder_logs`
+--
+ALTER TABLE `cylinder_logs`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1073,7 +1192,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `cylinders`
 --
 ALTER TABLE `cylinders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `cylinder_categories`
@@ -1082,10 +1201,28 @@ ALTER TABLE `cylinder_categories`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT for table `cylinder_delivery`
+--
+ALTER TABLE `cylinder_delivery`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `cylinder_delivery_items`
+--
+ALTER TABLE `cylinder_delivery_items`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+
+--
 -- AUTO_INCREMENT for table `cylinder_locations`
 --
 ALTER TABLE `cylinder_locations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `cylinder_logs`
+--
+ALTER TABLE `cylinder_logs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `cylinder_types`

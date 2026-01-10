@@ -45,7 +45,7 @@
                 </td>
                 <td class="text-center">{{items.cylinder_count || 0}}</td>
                 <td class="text-center dont-print">
-                    <div class="d-flex align-items-center justify-content-center">
+                    <div class="d-flex align-items-center justify-content-center" ng-if="items.is_parent == 0">
                         <button class="btn-table" type="button" ng-click="editLocation(items)" tooltip="Edit">
                             <i class="ph-bold ph-pencil-simple-line"></i>
                         </button>

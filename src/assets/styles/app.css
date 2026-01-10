@@ -69,6 +69,7 @@ a {
 .form-control,
 .form-select {
   border-radius: 8px !important;
+  border-color: #dee2e6;
 }
 .form-floating > label {
   background-color: transparent !important;
@@ -404,6 +405,15 @@ a {
   background-color: #fbe2e1;
   color: #e43333;
 }
+
+.status-badge.returned {
+  background-color: #fef3c7;
+  color: #b45309;
+}
+.status-badge.reserved {
+  background-color: #eeeeee;
+  color: #606060;
+}
 .status-badge.default {
   background-color: #f1f3ff;
   color: #848cb1;
@@ -429,7 +439,7 @@ a {
   background-color: #fff;
   width: 300px;
   padding: 10px 12px;
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  border: 1px solid #dee2e6;
   border-radius: 8px;
 }
 .table-search input {
@@ -530,7 +540,8 @@ a {
   border-top: none !important;
 }
 /* pagination */
-.pagination {
+.pagination,
+.pager {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -544,6 +555,35 @@ a {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
+  text-decoration: none !important;
+}
+.pager {
+  list-style-type: none;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+.pager ul {
+  display: flex;
+}
+.pager a {
+  background-color: var(--soft-1);
+  box-shadow: none !important;
+  border-radius: 5px;
+  color: #f1f1f1 !important;
+  background-color: var(--blue-1) !important;
+  border-color: var(--blue-1) !important;
+  margin-inline: 5px;
+  width: max-content !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-decoration: none !important;
+  padding: 8px 16px !important;
+}
+.pager a:disabled {
+  background-color: #e9ecef !important;
+  color: #6c757d !important;
 }
 .page-num .page-link {
   padding: 8px 16px !important;
@@ -977,4 +1017,10 @@ option:active {
 }
 .modal-dialog.modal-custom .modal-content {
   width: 650px;
+}
+.dropdown-tbl .dropdown-item:disabled,
+.dropdown-tbl .dropdown-item:disabled span,
+.dropdown-tbl .dropdown-item:disabled i {
+  color: #a3a3a3 !important;
+  cursor: not-allowed !important;
 }

@@ -31,13 +31,13 @@
                 <i class="ph-bold ph-wrench"></i><span>Maintenance</span>
             </a>
         </li>
-        <li ui-sref-active="active">
-            <a ui-sref="app.movement" ui-sref-opts="{reload: true}">
-                <i class="ph-bold ph-truck-trailer"></i><span>Movement</span>
+        <li ng-class="{active: state.includes('app.delivery')}">
+            <a ui-sref="app.delivery.list" ui-sref-opts="{reload: true}">
+                <i class="ph-bold ph-truck-trailer"></i><span>Delivery</span>
             </a>
         </li>
         <li ui-sref-active="active">
-            <a ui-sref="app.movement" ui-sref-opts="{reload: true}">
+            <a ui-sref="app.reports" ui-sref-opts="{reload: true}">
                 <i class="ph-bold ph-files"></i><span>Reports</span>
             </a>
         </li>

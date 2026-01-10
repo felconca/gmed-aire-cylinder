@@ -226,10 +226,11 @@ class CylindersController extends Rest
             $errors = [];
             // Aggregate duplicate errors
             $errors = [];
-            if ($cylinderService->serialExists($input['serial'])) {
+            // For update, ensure serial and barcode are unique except for the current record being updated.
+            if ($cylinderService->serialExists($input['serial'], $input['id'])) {
                 $errors[] = 'Serial number already exists.';
             }
-            if ($cylinderService->barcodeExists($input['barcode'])) {
+            if ($cylinderService->barcodeExists($input['barcode'], $input['id'])) {
                 $errors[] = 'Barcode already exists.';
             }
 
@@ -251,19 +252,11 @@ class CylindersController extends Rest
             $updated = $this->db->gmedaire()
                 ->UPDATE('cylinders', $updateData)
                 ->WHERE(['id' => $input["id"]]);
-
-            if ($updated) {
-                return $response([
-                    "success" => true,
-                    "message" => "Cylinder updated successfully.",
-                    "updated" => $updated,
-                ], 200);
-            } else {
-                return $response([
-                    "error" => true,
-                    "message" => "Failed to update cylinder or no changes."
-                ], 400);
-            }
+            return $response([
+                "success" => true,
+                "message" => "Cylinder updated successfully.",
+                "updated" => $updated,
+            ], 200);
         } catch (\Throwable $th) {
             return $response([
                 'error' => true,

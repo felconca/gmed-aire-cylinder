@@ -47,7 +47,7 @@ class LocationsService
         // If there are any, unset them and set $default_1 to 1
         if (!empty($existingDefaults)) {
             foreach ($existingDefaults as $def) {
-                $this->conn
+                $this->conn->gmedaire()
                     ->UPDATE('cylinder_locations', ['default_1' => 0])
                     ->WHERE(['id' => $def->id]);
             }

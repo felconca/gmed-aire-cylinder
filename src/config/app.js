@@ -176,6 +176,38 @@ angular
         },
       });
 
+      // movement
+      $stateProvider.state("app.delivery", {
+        abstract: true,
+        templateUrl: "src/template/delivery/layout.tpl.php",
+        controller: "deliveryCtrl",
+        resolve: {
+          loadCtrl: function ($ocLazyLoad) {
+            return $ocLazyLoad.load("src/template/delivery/delivery.ctrl.js");
+          },
+        },
+        data: {
+          breadcrumb: "Delivery",
+          pageTitle: "GMEDAIRE | Delivery",
+        },
+      });
+      $stateProvider.state("app.delivery.list", {
+        url: "/delivery/list",
+        templateUrl: "src/template/delivery/list.tpl.php",
+        data: {
+          breadcrumb: "List",
+          pageTitle: "GMEDAIRE | Delivery-List",
+        },
+      });
+      $stateProvider.state("app.delivery.edit", {
+        url: "/delivery/:id/edit",
+        templateUrl: "src/template/delivery/edit.tpl.php",
+        data: {
+          breadcrumb: "Edit",
+          pageTitle: "GMEDAIRE | Delivery-Edit",
+        },
+      });
+
       // set to url to html5
       // $locationProvider.html5Mode(true);
     },

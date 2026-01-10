@@ -134,7 +134,7 @@ angular
 
         let data = {
           barcode: c.barcode,
-          serial: c.serial,
+          serial: String(c.serial),
           types: c.types_id,
           categories: c.category_id,
           capacity: c.capacity,
@@ -176,7 +176,7 @@ angular
             );
             Toasty.showToast(
               "Error",
-              error.data.message,
+              error.data.details,
               `<i class="ph-fill ph-x-circle text-danger"></i>`,
               3000
             );
@@ -412,6 +412,7 @@ angular
           class: "maintenance",
         },
         returned: { label: "Returned", class: "returned" },
+        reserved: { label: "Reserved", class: "reserved" },
       };
       /**
        * Returns the status label (text only) for templates or logic

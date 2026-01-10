@@ -36,6 +36,7 @@ class LocationsController extends Rest
                     'descriptions',
                     'default_1',
                     'items_total',
+                    'is_parent',
                     'deleted'
                 ], 'cylinder_locations')
                 ->WHERE(['deleted' => 0])
@@ -61,7 +62,7 @@ class LocationsController extends Rest
             ]);
 
             $locationService = new LocationsService($this->db);
-            $default_1 = $locationService->unsetAllDefaults();
+            $default_1 = $input['default_1'] == 1 ? $locationService->unsetAllDefaults() : 0;
             // Force warehouse to 1
             $data = [
                 "tags" => $input["tags"],
@@ -105,7 +106,7 @@ class LocationsController extends Rest
 
 
             $locationService = new LocationsService($this->db);
-            $default_1 = $locationService->unsetAllDefaults();
+            $default_1 = $input['default_1'] == 1 ? $locationService->unsetAllDefaults() : 0;
 
             $updateData = [
                 "tags" => $input["tags"],
