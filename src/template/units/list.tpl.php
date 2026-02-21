@@ -55,7 +55,14 @@
 </div>
 
 <!-- pagination -->
-<div class=" d-flex align-items-center justify-content-between pt-3">
+<table-pagenation
+    items="unitF"
+    current-page="currentPage"
+    items-per-page="itemsPerPage"
+    on-page-change="pageChanged()">
+
+</table-pagenation>
+<!-- <div class=" d-flex align-items-center justify-content-between pt-3">
     <span class="page-table-info">
         Showing {{
             unitF.length > 0 ? formatNumber((currentPage - 1) * itemsPerPage + 1) : 0
@@ -65,4 +72,4 @@
     </span>
 
     <ul style="margin-bottom: 0 !important;" uib-pagination boundary-links="true" total-items="unitF.length" num-pages="numPages" items-per-page="itemsPerPage" ng-model="currentPage" max-size="5" boundary-link-numbers="true" ng-change="pageChanged()"></ul>
-</div>
+</div> -->

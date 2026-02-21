@@ -8,8 +8,21 @@ use Core\Routes\Route;
 use Includes\Rest;
 
 // For PHP 5.6+ compatibility - no type hints or trailing commas, use array()
-$dotenv = Dotenv::createImmutable(__DIR__ . '/..');
-$dotenv->load();
+// $dotenv = Dotenv::createImmutable(__DIR__ . '/..');
+// $dotenv->load();
+
+$env = require __DIR__ . '/../config/env.php';
+
+// Populate $_ENV
+foreach ($env as $key => $value) {
+    $_ENV[$key] = $value;
+}
+
+// (Optional but recommended) Populate getenv()
+foreach ($_ENV as $key => $value) {
+    putenv($key . '=' . $value);
+}
+
 
 // Load all defined routes
 $routes = Route::all();
